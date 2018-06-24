@@ -28,7 +28,6 @@ compile 'com.github.LillteZheng:ViewPagerHelper:v0.8'
 **版本迭代**
 - **v0.8  --> 退出时自动关轮播，isOutVisiableWindow()方法，用于有滚动时，判断是否停止轮播**
 - **v0.5  --> 增加 banner_loop_max_count 变量，当数据大于这个数值时，才会填充多个数据和轮播**
-- **v0.5  --> 增加 banner_loop_max_count 变量，当数据大于这个数值时，才会填充多个数据和轮播**
 - **v0.4  --> 解决app引导页，快速滑动时，“立即体验”按钮会不显示问题,并修改自定义属性，防止干扰**
 - **v0.3  --> 从lib中移除glide的依赖，防止干扰其他项目，去掉和优化一些代码，谢谢各位的提醒**
 - **v0.2  --> 修复TabIndicator的宽度，不是 match_parent时，通过SetTabData添加数据，却显示不全的问题**
@@ -221,7 +220,7 @@ mBannerCountViewPager.setPagerListener(bean, R.layout.loop_layout, new PageHelpe
 
 看一个完整的配置：
 ```
- GlideViewPager viewPager = (GlideViewPager) findViewById(R.id.splase_viewpager);
+  GlideViewPager viewPager = (GlideViewPager) findViewById(R.id.splase_viewpager);
         ZoomIndicator zoomIndicator = (ZoomIndicator) findViewById(R.id.splase_bottom_layout);
         Button button = (Button) findViewById(R.id.splase_start_btn);
 
@@ -232,8 +231,8 @@ mBannerCountViewPager.setPagerListener(bean, R.layout.loop_layout, new PageHelpe
             images.add(RES[i]);
 
         }
-        //配置pagerbean，这里主要是为了viewpager的指示器的作用，然后把最后一页的button也添加进来，注意记得写上泛型
-        PagerBean bean = new PagerBean.Builder<Integer>()
+        //配置pagerbean，这里主要是为了viewpager的指示器的作用，注意记得写上泛型
+        PageBean bean = new PageBean.Builder<Integer>()
                 .setDataObjects(images)
                 .setIndicator(zoomIndicator)
                 .setOpenView(button)
@@ -241,7 +240,7 @@ mBannerCountViewPager.setPagerListener(bean, R.layout.loop_layout, new PageHelpe
 
         // 把数据添加到 viewpager中，并把view提供出来，这样除了方便调试，也不会出现一个view，多个
         // parent的问题，这里在轮播图比较明显
-        viewPager.setPagerListener(bean, R.layout.image_layout, new PagerHelperListener() {
+        viewPager.setPageListener(bean, R.layout.image_layout, new PageHelperListener() {
             @Override
             public void getItemView(View view, Object data) {
                 //通过获取到这个view，你可以随意定制你的内容
